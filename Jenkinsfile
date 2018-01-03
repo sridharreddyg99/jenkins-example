@@ -19,7 +19,6 @@ stages {
             steps {
                 sh 'make check'
             }
-        }
     post {
         always {
             junit '**/target/*.xml'
