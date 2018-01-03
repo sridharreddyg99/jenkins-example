@@ -27,10 +27,7 @@ stages {
         always {
             junit '**/target/*.xml'
         }
-        failure {
-            mail to: yeshwanthjavvaji@gmail.com, subject: 'The Pipeline failed :('
-        }
+        
     }
-}
 }
 
