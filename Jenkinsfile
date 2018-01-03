@@ -1,27 +1,20 @@
-pipeline {
+pipeline
+{
 
-    agent any
+agent any
+tools{
+maven 'maven3'
+jdk 'jdk8'
+}
+stages {
+  stage ('Build') {
+ 
+ steps     {
+ 
+      sh "mvn clean install"
+ 
+    } 
+  }
+}
+}
 
-
-
-    stages {
-
-        stage ('Compile Stage') {
-
-
-
-            steps {
-
-                withMaven(maven : 'maven3') {
-
-                    sh 'mvn clean compile'
-
-                }
-
-            }
-
-        }
-
-   }
-   
-}   
