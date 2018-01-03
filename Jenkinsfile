@@ -1,4 +1,4 @@
- pipeline
+\ pipeline
 {
 
 agent any
@@ -21,7 +21,7 @@ stages {
             }
     post {
         always {
-            junit '\Users\YESHU\Desktop\junit.xml'
+            junit '\\Users\\YESHU\\Desktop\\junit.xml'
         }
       }
    }
