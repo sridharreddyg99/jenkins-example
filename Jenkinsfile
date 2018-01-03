@@ -21,7 +21,7 @@ stages {
             }
     post {
         always {
-            junit 'C:\Users\YESHU\Desktop\junit.xml'
+            junit '\Users\YESHU\Desktop\junit.xml'
         }
       }
    }
