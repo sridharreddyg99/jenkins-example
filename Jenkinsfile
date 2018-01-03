@@ -16,5 +16,21 @@ stages {
     } 
   }
 }
+  stages {
+        stage('Test') {
+            steps {
+                sh 'make check'
+            }
+        }
+    }
+    post {
+        always {
+            junit '**/target/*.xml'
+        }
+        failure {
+            mail to: yeshwanthjavvaji@gmail.com, subject: 'The Pipeline failed :('
+        }
+    }
+}
 }
 
