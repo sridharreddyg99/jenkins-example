@@ -1,29 +1,21 @@
-def deployBranches = [ "master" ]
-def phase = "verify"
+stage 'checkout'
+node ('master'){
+    checkout scm
+}
 
-stage ('Build') {
-    node {
-        checkout scm
-        def branch = scm.branches[0].name
-        if (deployBranches.contains(branch)) {
-            phase = "deploy"
-        }
-        echo "Running mvn $phase on branch $branch"
-        sh 'mkdir -p ~/.gnupg'
-        withCredentials([
-            file(credentialsId: 'gpg-pubring', variable: 'GPG_PUB_RING'),
-            file(credentialsId: 'gpg-secring', variable: 'GPG_SEC_RING'),
-            file(credentialsId: 'gradle-settings', variable: 'GRADLE_SETTINGS')]) {
-                try {
-                    sh "./gradlew $phase -P signing.secretKeyRingFile=$GPG_SEC_RING -P extProps=$GRADLE_SETTINGS"
-                } finally {
-                    archiveArtifacts 'build/libs/*.jar'
-                    archiveArtifacts 'build/libs/*.asc'
-                    if (phase == 'deploy') archiveArtifacts 'build/poms/*.xml'
-                    if (phase == 'deploy') archiveArtifacts 'build/poms/*.asc'
-                    junit allowEmptyResults: true, testResults: 'build/test-results/test/*.xml'
-                }
-        }
-        step([$class: 'WsCleanup'])
-    }
+stage 'build'
+node ('master'){
+
+     
+   withEnv(["JAVA_HOME=${ tool 'jdk8' }", "PATH+MAVEN=${tool 'maven3'}/bin:${env.JAVA_HOME}/bin"]) {
+
+    // Apache Maven related side notes:
+    // --batch-mode : recommended in CI to inform maven to not run in interactive mode (less logs)
+    // -V : strongly recommended in CI, will display the JDK and Maven versions in use.
+    //      Very useful to be quickly sure the selected versions were the ones you think.
+    // -U : force maven to update snapshots each time (default : once an hour, makes no sense in CI).
+    // -Dsurefire.useFile=false : useful in CI. Displays test errors in the logs directly (instead of
+    //                            having to crawl the workspace files to see the cause).
+    sh "mvn --batch-mode -V -U -e clean deploy -Dsurefire.useFile=false"
+}
 }
