@@ -1,8 +1,7 @@
 node('master')
 {
 stage 'checkout'
-  {
-    checkout scm
+ { checkout scm
   }
 stage 'build'
     {
