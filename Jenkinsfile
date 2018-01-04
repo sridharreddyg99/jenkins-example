@@ -16,7 +16,7 @@ node ('master'){
 
 }
 
-        stage 'Reports'
+        stage 'Reports
 node('master'){
 
                 allure results: [[path: 'target/allure-results']]
