@@ -13,7 +13,6 @@ node ('master'){
     sh "mvn clean verify"
  }
 }
-}
 stage 'test'
 node('master'){
    steps {
