@@ -19,5 +19,5 @@ node('master'){
                 * using `true` to allow the Pipeline to continue nonetheless
                 */
                 sh 'make check || true' 
-                junit '\Users\nikhi\Desktop\reports'
+                junit '\\Users\\nikhi\\Desktop\\reports.xml'
    }
