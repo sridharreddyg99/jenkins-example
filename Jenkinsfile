@@ -22,14 +22,3 @@ node('master'){
                 allure results: [[path: 'target/allure-results']]
 
             }
-
-    post {
-
-        always {
-
-            deleteDir()
-
-        }
-
-    }
-
