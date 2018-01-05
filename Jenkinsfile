@@ -20,7 +20,7 @@ stage 'Test'
 node('master'){
             
                 sh 'make check'
-                junit 'reports/**/*.xml'
+                junit '\Users\nikhi\Desktop\reports.xml'
 }
 
         stage 'Reports'
