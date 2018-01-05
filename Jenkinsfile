@@ -15,13 +15,7 @@ node ('master'){
  }
 
 }
-stage 'Test'
 
-node('master'){
-            
-                sh 'make check || true' 
-                junit '**/target/*.xml'
-}
 
         stage 'Reports'
 node('master'){
@@ -29,3 +23,10 @@ node('master'){
                 allure results: [[path: 'target/allure-results']]
 
             }
+stage 'Test'
+
+node('master'){
+            
+                sh 'make check || true' 
+                junit '**/target/*.xml'
+}
