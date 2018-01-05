@@ -19,8 +19,8 @@ stage 'Test'
 
 node('master'){
             
-                sh 'make check'
-                junit [[path: 'target/junit-results']]
+                sh 'make check || true' 
+                junit '**/target/*.xml'
 }
 
         stage 'Reports'
