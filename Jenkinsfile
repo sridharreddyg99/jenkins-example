@@ -20,7 +20,7 @@ stage 'Test'
 node('master'){
             
                 sh 'make check'
-                junit '\Users\nikhi\Desktop\reports.xml'
+                junit [[path: 'target/junit-results']]
 }
 
         stage 'Reports'
