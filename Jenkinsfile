@@ -4,7 +4,6 @@ node ('master'){
 
     checkout scm
 
-}
 
 stage 'build'
 
@@ -29,4 +28,5 @@ node('master'){
             
                 sh 'make check || true' 
                 junit '**/target/*.xml'
+}
 }
