@@ -26,5 +26,5 @@ stage 'Test'
 
             
                 sh 'make check || true' 
-                junit '**/target/*.xml'
+                junit 'FizzBuzzTest.java'
 }
